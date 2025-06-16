@@ -4,6 +4,7 @@ import cleancode.minesweeper.tobe.GameException;
 import cleancode.minesweeper.tobe.GameBoard;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ConsoleOutputHandler implements OutputHandler {
@@ -33,7 +34,7 @@ public class ConsoleOutputHandler implements OutputHandler {
         List<String> alphabets = IntStream.range(0, board.getColSize())
                 .mapToObj(index -> (char) ('a' + index))
                 .map(Object::toString)
-                .toList();
+                .collect(Collectors.toList());
         return String.join(" ", alphabets);
     }
     @Override
