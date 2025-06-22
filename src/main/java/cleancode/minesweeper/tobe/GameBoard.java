@@ -3,14 +3,10 @@ package cleancode.minesweeper.tobe;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import cleancode.minesweeper.tobe.cell.Cell;
-import cleancode.minesweeper.tobe.cell.Cells;
-import cleancode.minesweeper.tobe.cell.EmptyCell;
-import cleancode.minesweeper.tobe.cell.LandMineCell;
-import cleancode.minesweeper.tobe.cell.NumberCell;
-import cleancode.minesweeper.tobe.cell.position.CellPosition;
-import cleancode.minesweeper.tobe.cell.position.CellPositions;
-import cleancode.minesweeper.tobe.cell.position.RelativePosition;
+import cleancode.minesweeper.tobe.cell.*;
+import cleancode.minesweeper.tobe.position.CellPosition;
+import cleancode.minesweeper.tobe.position.CellPositions;
+import cleancode.minesweeper.tobe.position.RelativePosition;
 import cleancode.minesweeper.tobe.gamelevel.GameLevel;
 
 public class GameBoard {
@@ -37,6 +33,11 @@ public class GameBoard {
 
         return cellPosition.isRowIndexMoreThanOrEqual(rowSize)
             || cellPosition.isColIndexMoreThanOrEqual(colSize);
+    }
+
+    public CellSnapshot getSnapshot(CellPosition cellPosition) {
+        Cell cell = findCell(cellPosition);
+        return cell.getSnapshot();
     }
     
     public boolean isLandMineCell(CellPosition cellPosition) {
@@ -111,11 +112,6 @@ public class GameBoard {
         board[position.getRowIndex()][position.getColIndex()] = cell;
     }
 
-    public String getSign(CellPosition cellPosition) {
-        Cell cell = findCell(cellPosition);
-        return cell.getSign();
-    }
-
     private Cell findCell(CellPosition cellPosition) {
         return board[cellPosition.getRowIndex()][cellPosition.getColIndex()];
     }
@@ -157,4 +153,6 @@ public class GameBoard {
             .filter(position -> position.isColIndexLessThan(colSize))
             .collect(Collectors.toList());
     }
+
+
 }
